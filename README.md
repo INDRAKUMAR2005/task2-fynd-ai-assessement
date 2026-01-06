@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Feedback System (Two-Dashboard)
 
-## Getting Started
+A production-style web application for collecting user feedback and analyzing it using AI.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **User Dashboard**: 1-5 star rating and review submission with instant AI-generated response.
+- **Admin Dashboard**: Live-updating feed of submissions with AI summaries and recommended actions.
+- **AI-Powered**: Uses Google Gemini 1.5 Flash for analysis and response generation.
+- **Responsive Design**: Built with Next.js, Tailwind CSS, and Lucide icons.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Frontend/Backend**: Next.js (App Router)
+- **Database**: MongoDB (Mongoose)
+- **AI**: Google Generative AI (Gemini API)
+- **Deployment Target**: Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Local Setup
 
-## Learn More
+1. **Clone/Download** the repository.
+2. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
+3. **Environment Variables**:
+   Create a `.env.local` file in the root directory:
+   ```env
+   MONGODB_URI=your_mongodb_atlas_connection_string
+   GEMINI_API_KEY=your_gemini_api_key
+   ```
+4. **Run Development Server**:
+   ```bash
+   npm run dev
+   ```
+   - User Dashboard: `http://localhost:3000`
+   - Admin Dashboard: `http://localhost:3000/admin`
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment (Vercel)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Connect your repository to Vercel.
+2. Add the `MONGODB_URI` and `GEMINI_API_KEY` to the project's Environment Variables in the Vercel dashboard.
+3. Vercel will automatically detect Next.js and deploy.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Technical Details
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Server-Side AI**: All Gemini API calls are made in Next.js Server Actions/API Routes to protect the API key.
+- **Robustness**: Handles empty reviews and long reviews gracefully. Includes error states for API failures.
+- **Schemas**: Uses Mongoose for explicit JSON schemas and data persistence.
