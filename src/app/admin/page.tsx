@@ -2,14 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import {
-    BarChart3,
     MessageSquare,
     Star,
     RefreshCcw,
     LayoutDashboard,
-    ChevronRight,
-    TrendingUp,
-    Filter
 } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -55,15 +51,6 @@ export default function AdminDashboard() {
         return () => clearInterval(interval);
     }, []);
 
-    const ratingCounts = feedbacks.reduce((acc: any, f) => {
-        acc[f.rating] = (acc[f.rating] || 0) + 1;
-        return acc;
-    }, {});
-
-    const avgRating = feedbacks.length > 0
-        ? (feedbacks.reduce((sum, f) => sum + f.rating, 0) / feedbacks.length).toFixed(1)
-        : 0;
-
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200">
             {/* Sidebar (Desktop) */}
@@ -79,10 +66,6 @@ export default function AdminDashboard() {
                     <button className="w-full flex items-center gap-3 px-4 py-3 bg-blue-600/10 text-blue-400 rounded-xl font-medium border border-blue-600/20">
                         <LayoutDashboard size={18} />
                         Overview
-                    </button>
-                    <button className="w-full flex items-center gap-3 px-4 py-3 text-slate-400 hover:bg-slate-800/50 rounded-xl font-medium transition-colors">
-                        <BarChart3 size={18} />
-                        Analytics
                     </button>
                     <button className="w-full flex items-center gap-3 px-4 py-3 text-slate-400 hover:bg-slate-800/50 rounded-xl font-medium transition-colors">
                         <MessageSquare size={18} />
@@ -107,59 +90,10 @@ export default function AdminDashboard() {
                     </button>
                 </header>
 
-                {/* Analytics Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-                    <div className="bg-[#0f172a] border border-slate-800 rounded-2xl p-6">
-                        <div className="flex justify-between items-start mb-4">
-                            <div className="p-3 bg-blue-600/10 rounded-xl text-blue-500">
-                                <MessageSquare size={20} />
-                            </div>
-                            <span className="text-xs text-green-500 font-bold bg-green-500/10 px-2 py-1 rounded-full">+12%</span>
-                        </div>
-                        <h3 className="text-slate-400 text-sm font-medium">Total Reviews</h3>
-                        <p className="text-3xl font-bold text-white mt-1">{feedbacks.length}</p>
-                    </div>
-
-                    <div className="bg-[#0f172a] border border-slate-800 rounded-2xl p-6">
-                        <div className="flex justify-between items-start mb-4">
-                            <div className="p-3 bg-yellow-500/10 rounded-xl text-yellow-500">
-                                <Star size={20} />
-                            </div>
-                        </div>
-                        <h3 className="text-slate-400 text-sm font-medium">Avg. Rating</h3>
-                        <p className="text-3xl font-bold text-white mt-1">{avgRating} <span className="text-lg text-slate-500">/ 5</span></p>
-                    </div>
-
-                    <div className="bg-[#0f172a] border border-slate-800 rounded-2xl p-6 md:col-span-2">
-                        <h3 className="text-slate-400 text-sm font-medium mb-4">Rating Distribution</h3>
-                        <div className="flex items-end gap-3 h-16">
-                            {[1, 2, 3, 4, 5].map((star) => {
-                                const height = feedbacks.length > 0
-                                    ? ((ratingCounts[star] || 0) / feedbacks.length) * 100
-                                    : 0;
-                                return (
-                                    <div key={star} className="flex-1 flex flex-col items-center gap-2">
-                                        <div
-                                            className="w-full bg-blue-600/80 rounded-t-md transition-all duration-500 min-h-[4px]"
-                                            style={{ height: `${height}%` }}
-                                        />
-                                        <span className="text-[10px] text-slate-600 font-bold">{star}★</span>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-                </div>
-
                 {/* Feedback List */}
                 <div className="bg-[#0f172a] border border-slate-800 rounded-2xl overflow-hidden mb-10">
                     <div className="p-6 border-b border-slate-800 flex justify-between items-center bg-[#0f172a]">
                         <h2 className="text-xl font-bold text-white">Live Submissions</h2>
-                        <div className="flex gap-2">
-                            <button className="p-2 text-slate-400 hover:bg-slate-800 rounded-lg transition-colors">
-                                <Filter size={18} />
-                            </button>
-                        </div>
                     </div>
 
                     {loading ? (
