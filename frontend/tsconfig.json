@@ -26,8 +26,8 @@
       "@/*": [
         "./*"
       ],
-      "@/server/*": [
-        "./server/*"
+      "@/backend/*": [
+        "../backend/*"
       ]
     }
   },
@@ -37,7 +37,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    "**/*.mts",
+    "../backend"
   ],
   "exclude": [
     "node_modules"
