@@ -9,7 +9,7 @@ interface FeedbackAnalysis {
 }
 
 export async function analyzeFeedback(rating: number, review: string): Promise<FeedbackAnalysis> {
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
     const prompt = `
     You are an AI assistant for a feedback system. 
