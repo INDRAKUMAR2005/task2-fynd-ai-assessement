@@ -1,5 +1,3 @@
-'use client';
-
 import { useState, useEffect } from 'react';
 import {
     MessageSquare,
@@ -28,6 +26,7 @@ export default function AdminDashboard() {
     const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
 
     const fetchFeedbacks = async (isRefreshing = false) => {
         if (isRefreshing) setRefreshing(true);
@@ -46,10 +45,13 @@ export default function AdminDashboard() {
     };
 
     useEffect(() => {
+        setIsMounted(true);
         fetchFeedbacks();
         const interval = setInterval(() => fetchFeedbacks(), 10000); // Polling every 10s
         return () => clearInterval(interval);
     }, []);
+
+    if (!isMounted) return null;
 
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200">
@@ -120,7 +122,7 @@ export default function AdminDashboard() {
                                                 ))}
                                             </div>
                                             <span className="text-xs text-slate-500 font-medium">
-                                                {new Date(f.createdAt).toLocaleDateString()}
+                                                {f.createdAt ? new Date(f.createdAt).toLocaleDateString() : ''}
                                             </span>
                                         </div>
 

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import dbConnect from '@/lib/db';
-import Feedback from '@/models/Feedback';
-import { analyzeFeedback } from '@/lib/ai';
+import dbConnect from '@/server/services/db';
+import Feedback from '@/server/models/Feedback';
+import { analyzeFeedback } from '@/server/services/ai';
 
 export async function POST(req: Request) {
     try {
